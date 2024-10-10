@@ -62,7 +62,7 @@ function getFactorial(n) {
     num -= 1;
     res *= num;
   }
-  
+
   return res;
 }
 
@@ -78,8 +78,11 @@ function getFactorial(n) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+
+function getSumBetweenNumbers(n1, n2) {
+  const el = n2 - n1 + 1;
+  const arr = Array.from({ length: el }, (_, i) => n1 + i);
+  return arr.reduce((acc, i) => acc + i, 0);
 }
 
 /**
