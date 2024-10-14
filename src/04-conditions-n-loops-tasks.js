@@ -432,8 +432,14 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const arr = [];
+  for (let i = 0; i < Math.min(...pathes.map((v) => v.length)); i += 1) {
+    if (pathes.every((v) => v[i] === pathes[0][i])) arr.push(pathes[0][i]);
+    else break;
+  }
+
+  return arr.join('').replace(/\w+$/g, '');
 }
 
 /**
@@ -454,8 +460,22 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const colsM1Length = m1[0].length;
+  const colsM2Length = m2[0].length;
+  const rowsM1Length = m1.length;
+
+  const result = Array.from({ length: rowsM1Length }, () => Array(colsM2Length).fill(0));
+
+  for (let i = 0; i < rowsM1Length; i += 1) {
+    for (let j = 0; j < colsM2Length; j += 1) {
+      for (let k = 0; k < colsM1Length; k += 1) {
+        result[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -488,8 +508,45 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < 3; i += 1) {
+    if (
+      position[i][0] === position[i][1]
+      && position[i][1] === position[i][2]
+      && position[i][0] !== undefined
+    ) {
+      return position[i][0];
+    }
+  }
+
+  for (let i = 0; i < 3; i += 1) {
+    if (
+      position[0][i] === position[1][i]
+      && position[1][i] === position[2][i]
+      && position[0][i] !== undefined
+    ) {
+      return position[0][i];
+    }
+  }
+
+  if (
+    position[0][0] === position[1][1]
+    && position[1][1] === position[2][2]
+    && position[0][0] !== undefined
+  ) {
+    return position[0][0];
+  }
+
+  if (
+    position[0][2] === position[1][1]
+    && position[1][1] === position[2][0]
+    && position[0][2] !== undefined
+  ) {
+    return position[0][2];
+  }
+
+
+  return undefined;
 }
 
 module.exports = {
